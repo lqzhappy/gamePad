@@ -10,7 +10,7 @@ pipeline {
                 docker {
                     image 'node:22'
                     label 'docker-agent'
-                    # args '-v /ext/jenkins-agent/npm-cache:/home/node/.npm'
+                    // args '-v /ext/jenkins-agent/npm-cache:/home/node/.npm'
                 }
             }
 
