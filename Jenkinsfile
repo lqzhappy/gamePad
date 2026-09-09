@@ -28,7 +28,6 @@ pipeline {
                     npm config set registry http://nexus.lan/repository/npm-group/
                     sed -i 's#https://registry.npmmirror.com/#http://nexus.lan/repository/npm-group/#g' package-lock.json
                     sed -i 's#https://registry.npmjs.org/#http://nexus.lan/repository/npm-group/#g' package-lock.json
-                    cat package-lock.json
                 '''
                 echo '===== 安装依赖 ====='
 
@@ -64,12 +63,10 @@ pipeline {
                     ls -lah dist
 
                     cp -r dist/* ../public
-
-                    
                 '''
 
                 echo '===== 保存 Jenkins 构建产物 ====='
-                    
+
                 archiveArtifacts artifacts: 'dist/**', fingerprint: true
             }
 
@@ -77,4 +74,19 @@ pipeline {
 
     }
 
+    post { 
+        success { 
+            sh '''
+              curl -sS -G \ --data-urlencode "title=✅ Jenkins 构建成功" \ --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: SUCCESS\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" \ "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
+            ''' 
+        } 
+        failure { 
+            sh '''
+              curl -sS -G \ --data-urlencode "title=❌ Jenkins 构建失败" \ --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: FAILURE\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" \ "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
+            '''
+         } 
+    }
+
 }
+
+
