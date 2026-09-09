@@ -16,7 +16,7 @@ pipeline {
 
             steps {
 
-                echo '===== Node 环境 ======'
+                echo '===== Node 环境 ====='
 
                 sh '''
                     node -v
