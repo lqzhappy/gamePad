@@ -57,7 +57,7 @@ pipeline {
 
                     ls -lah dist
 
-                    cp -r dist/* /ext/jenkins-agent/public/
+                    cp -r dist/* ../public
                 '''
             }
 
