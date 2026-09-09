@@ -65,10 +65,12 @@ pipeline {
 
                     cp -r dist/* ../public
 
-                    echo '===== 保存 Jenkins 构建产物 ====='
                     
-                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
                 '''
+
+                echo '===== 保存 Jenkins 构建产物 ====='
+                    
+                archiveArtifacts artifacts: 'dist/**', fingerprint: true
             }
 
         }
