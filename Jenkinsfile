@@ -9,7 +9,8 @@ pipeline {
             agent {
                 docker {
                     image 'node:22'
-                    label 'docker-agent'
+                    label 'docker-agent-auto'
+                    args '-v /ext/jenkins-agent/npm-cache:/root/.npm'
                 }
             }
 
