@@ -27,6 +27,7 @@ pipeline {
                 echo '===== 安装依赖 ====='
 
                 sh '''
+                    npm config set registry http://nexus.lan/repository/npm-group/
                     npm ci
                 '''
 
