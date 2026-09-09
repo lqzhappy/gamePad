@@ -28,6 +28,7 @@ pipeline {
                     npm config set registry http://nexus.lan/repository/npm-group/
                     sed -i 's#https://registry.npmmirror.com/#http://nexus.lan/repository/npm-group/#g' package-lock.json
                     sed -i 's#https://registry.npmjs.org/#http://nexus.lan/repository/npm-group/#g' package-lock.json
+                    cat package-lock.json
                 '''
                 echo '===== 安装依赖 ====='
 
