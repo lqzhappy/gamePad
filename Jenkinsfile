@@ -64,6 +64,10 @@ pipeline {
                     ls -lah dist
 
                     cp -r dist/* ../public
+
+                    echo '===== 保存 Jenkins 构建产物 ====='
+                    
+                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
                 '''
             }
 
