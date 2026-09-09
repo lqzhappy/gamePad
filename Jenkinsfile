@@ -23,7 +23,7 @@ pipeline {
                     npm -v
                 '''
 
-                echo '===== 修改npm代理 ====='
+                echo '===== 修改npm代理 ======'
                 sh '''
                     npm config set registry http://nexus.lan/repository/npm-group/
                     sed -i 's#https://registry.npmmirror.com/#http://nexus.lan/repository/npm-group/#g' package-lock.json
