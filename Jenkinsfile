@@ -43,7 +43,7 @@ pipeline {
         }
 
         stage('Check Build') {
-            
+
             steps {
 
                 sh '''
@@ -67,12 +67,12 @@ pipeline {
     post {
         success { 
             sh '''
-            curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: SUCCESS\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
+            curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: SUCCESS 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
             ''' 
         } 
         failure { 
             sh '''
-            curl -sS -G --data-urlencode "title=❌ Jenkins 构建失败" --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: FAILURE\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
+            curl -sS -G --data-urlencode "title=❌ Jenkins 构建失败" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: FAILURE 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
             '''
         } 
     }
