@@ -1,20 +1,16 @@
 pipeline {
 
     agent {
-        label 'docker-agent'
+        docker {
+            image 'node:22'
+            label 'docker-agent'
+            // args '-v /ext/jenkins-agent/npm-cache:/home/node/.npm'
+        }
     }
 
     stages {
 
         stage('Build Web') {
-
-            agent {
-                docker {
-                    image 'node:22'
-                    label 'docker-agent'
-                    // args '-v /ext/jenkins-agent/npm-cache:/home/node/.npm'
-                }
-            }
 
             steps {
 
@@ -37,17 +33,14 @@ pipeline {
                     npm ci
                 '''
 
-
                 echo '===== Webpack Build ====='
 
                 sh '''
                     npm run build
                 '''
-
             }
 
         }
-
 
         stage('Check Build') {
 
@@ -73,24 +66,20 @@ pipeline {
             }
 
         }
-
-
-
     }
 
-        post {
-            success { 
-                sh '''
-                curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: SUCCESS\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
-                ''' 
-            } 
-            failure { 
-                sh '''
-                curl -sS -G --data-urlencode "title=❌ Jenkins 构建失败" --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: FAILURE\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
-                '''
-            } 
-        }
-
+    post {
+        success { 
+            sh '''
+            curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: SUCCESS\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
+            ''' 
+        } 
+        failure { 
+            sh '''
+            curl -sS -G --data-urlencode "title=❌ Jenkins 构建失败" --data-urlencode "body=项目: ${JOB_NAME}\\n构建: #${BUILD_NUMBER}\\n状态: FAILURE\\n耗时: ${BUILD_DURATION}\\n${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
+            '''
+        } 
+    }
 }
 
 
