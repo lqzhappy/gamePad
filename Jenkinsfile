@@ -43,11 +43,7 @@ pipeline {
         }
 
         stage('Check Build') {
-
-            agent {
-                label 'docker-agent'
-            }
-
+            
             steps {
 
                 sh '''
