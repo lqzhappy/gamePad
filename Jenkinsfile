@@ -65,15 +65,24 @@ pipeline {
     }
 
     post {
-        success { 
-            sh '''
-            curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: SUCCESS 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
-            ''' 
+        success {
+
+            script{
+
+                def duration = currentBuild.durationString
+                sh '''
+                    curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: SUCCESS 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP" 
+                    ''' 
+                }
         } 
-        failure { 
-            sh '''
-            curl -sS -G --data-urlencode "title=❌ Jenkins 构建失败" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: FAILURE 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
-            '''
+        failure {
+            script{
+
+                def duration = currentBuild.durationString
+                sh '''
+                    curl -sS -G --data-urlencode "title=❌ Jenkins 构建失败" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: FAILURE 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/SkFBmkx8AraqPUezwRUaAP"
+                '''
+            }
         } 
     }
 }
