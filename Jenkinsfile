@@ -75,6 +75,7 @@ pipeline {
                         curl -sS -G --data-urlencode "title=✅ Jenkins 构建成功" --data-urlencode "body=项目: ${JOB_NAME} 构建: #${BUILD_NUMBER} 状态: SUCCESS 耗时: ${duration} ${BUILD_URL}" "http://bark.lan/\${BARK_KEY}" 
                     """
                 }
+            }
         } 
         failure {
             script{
