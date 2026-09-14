@@ -1,0 +1,9 @@
+name: Hello Runner
+on: [push]
+
+jobs:
+  hello:
+    runs-on: orangepiplus5-docker   # 必须匹配 Runner 的标签
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Runner 正常运行了"
