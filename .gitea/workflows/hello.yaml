@@ -1,9 +1,25 @@
-name: Hello Runner
-on: [push]
+name: Node Build
+on:
+  push:
+    branches: [t2]
+  pull_request:
 
 jobs:
-  hello:
-    runs-on: orangepiplus5-docker   # 必须匹配 Runner 的标签
+  build:
+    runs-on: orangepiplus5-docker   # 必须匹配你 Runner 的标签
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Runner 正常运行了"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
