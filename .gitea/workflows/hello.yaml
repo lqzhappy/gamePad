@@ -11,7 +11,7 @@ jobs:
       - uses: http://git.lan/admin/actions-checkout@v4
 
       - name: Setup Node
-        uses: admin/actions-setup-node@v4
+        uses: http://git.lan/admin/actions-setup-node@v4
         #with:
          # node-version: '22'
 
@@ -21,7 +21,7 @@ jobs:
           echo "dir=$(npm config get cache)" >> "$GITEA_OUTPUT"
 
       - name: Cache npm
-        uses:  admin/actions-cache@v4
+        uses:  http://git.lan/admin/actions-cache@v4
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -36,7 +36,7 @@ jobs:
         run: npm run build
 
       - name: Upload artifact
-        uses: admin/actions-upload-artifact@v4
+        uses: http://git.lan/admin/actions-upload-artifact@v4
         with:
           name: dist
           path: dist/
