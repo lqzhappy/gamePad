@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: orangepiplus5-docker   # 必须匹配你 Runner 的标签
     steps:
-      - uses: admin/actions-checkout@v4
+      - uses: http://git.lan/admin/actions-checkout@v4
 
       - name: Setup Node
         uses: admin/actions-setup-node@v4
