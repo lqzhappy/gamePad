@@ -40,3 +40,4 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 1 # 设置保留天数
