@@ -8,10 +8,10 @@ jobs:
   build:
     runs-on: orangepiplus5-docker   # 必须匹配你 Runner 的标签
     steps:
-      - uses: actions/checkout@v4
+      - uses: http://git.lan/actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: http://git.lan/actions/setup-node@v4
         #with:
          # node-version: '22'
 
@@ -21,7 +21,7 @@ jobs:
           echo "dir=$(npm config get cache)" >> "$GITEA_OUTPUT"
 
       - name: Cache npm
-        uses:  actions/cache@v4
+        uses:  http://git.lan/actions/cache@v4
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -36,7 +36,7 @@ jobs:
         run: npm run build
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: http://git.lan/actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
